@@ -1,9 +1,35 @@
-import React from "react";
-const Input = () => {
+import React, { useState } from "react";
+const Input = ({addTask}) => {
+  const [input, setInput] = useState("");
+  const [checkbox, setCheckBox] = useState(false);
+  const onFormSubmit=(e)=>{
+    e.preventDefault()
+    addTask(input,checkbox)
+  }
   return (
-    <div class="ui small input centered grid" style={{marginTop:"2rem"}}>
-      <input type="text" placeholder="Search..."></input>
-      <button class="ui teal button">add</button>
+    <div class="ui small input centered grid" style={{ marginTop: "2rem" }}>
+      <form onSubmit={onFormSubmit}>
+        <input
+          type="text"
+          placeholder="Description"
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
+        ></input>
+        <div class="ui toggle checkbox">
+          <input
+            type="checkbox"
+            name="public"
+            value={checkbox}
+            onClick={() => {
+              setCheckBox(!checkbox);
+            }}
+          />
+          <label>Subscribe to weekly newsletter</label>
+        </div>
+        <button class="ui teal button">add</button>
+      </form>
     </div>
   );
 };
