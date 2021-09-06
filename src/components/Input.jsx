@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-const Input = ({addTask}) => {
+const Input = ({ addTask ,setTasks}) => {
   const [input, setInput] = useState("");
   const [checkbox, setCheckBox] = useState(false);
-  const onFormSubmit=(e)=>{
-    e.preventDefault()
-    addTask(input,checkbox)
-  }
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+   const allTasks= addTask(input, checkbox);
+   setTasks(allTasks.data)
+  };
   return (
-    <div class="ui small input centered grid" style={{ marginTop: "2rem" }}>
-      <form onSubmit={onFormSubmit}>
+    <form class="ui form" onSubmit={onFormSubmit}>
+      <div className="field">
+        <label>Description</label>
         <input
           type="text"
           placeholder="Description"
@@ -17,6 +19,8 @@ const Input = ({addTask}) => {
             setInput(e.target.value);
           }}
         ></input>
+      </div>
+      <div className="field">
         <div class="ui toggle checkbox">
           <input
             type="checkbox"
@@ -26,11 +30,12 @@ const Input = ({addTask}) => {
               setCheckBox(!checkbox);
             }}
           />
-          <label>Subscribe to weekly newsletter</label>
+          <label>Compeleted</label>
         </div>
-        <button class="ui teal button">add</button>
-      </form>
-    </div>
+      </div>
+
+      <button class="ui teal button">add</button>
+    </form>
   );
 };
 export default Input;
