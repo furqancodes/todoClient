@@ -2,9 +2,9 @@ import React, { useState } from "react";
 const Input = ({ addTask ,setTasks}) => {
   const [input, setInput] = useState("");
   const [checkbox, setCheckBox] = useState(false);
-  const onFormSubmit = (e) => {
+  const onFormSubmit = async(e) => {
     e.preventDefault();
-   const allTasks= addTask(input, checkbox);
+   const allTasks= await addTask(input, checkbox);
    setTasks(allTasks.data)
   };
   return (
@@ -34,7 +34,7 @@ const Input = ({ addTask ,setTasks}) => {
         </div>
       </div>
 
-      <button class="ui teal button">add</button>
+      <button class="ui teal button" type="submit">add</button>
     </form>
   );
 };

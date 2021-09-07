@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 
 const Tasklist = ({ getTasks, deleteTask, tasks, setTasks }) => {
+  const [states,setState] = useState("")
   useEffect(() => {
     async function fetchData() {
       const result = await getTasks();
-      setTasks(result.data);
+      setState(result.data);
     }
     fetchData();
   }, [tasks]);
   const conditionalRendering = () => {
-    if (tasks) {
-      return tasks.map((task) => {
+    if (states) {
+      return states.map((task) => {
         console.log(task);
         return (
           <tr class="positive" key={task.id}>
@@ -18,9 +19,9 @@ const Tasklist = ({ getTasks, deleteTask, tasks, setTasks }) => {
             <td>{task.completed.toString()}</td>
             <td>
               <button
-                onClick={() => {
-                  const result = deleteTask(task._id);
-                  setTasks(result.data);
+                onClick={async() => {
+                  const result = await deleteTask(task._id);
+                  setState(result.data);
                 }}
                 class="negative ui button"
               >
