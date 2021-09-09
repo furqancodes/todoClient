@@ -14,15 +14,23 @@ export const getTasks = async () => {
   return taskList;
 };
 
+export const updateTasks = async ({ id, description, completed }) => {
+  const response = await Task.patch(`/update/${id}`, {
+    description,
+    completed,
+  });
+  return response;
+};
+
 export const deleteTask = async (taskid) => {
   const response = await Task.delete(`/tasks/${taskid}`);
   return response;
 };
 
-export const postSlack = async({tasks,message})=>{
-  const response = await Task.post("/slack",{
+export const postSlack = async ({ tasks, message }) => {
+  const response = await Task.post("/slack", {
     message,
-    tasks
-  })
-  return response
-}
+    tasks,
+  });
+  return response;
+};

@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { deleteTask, postSlack } from "../services/task";
 
-const Tasklist = ({ tasks, fetchTasks }) => {
+const Tasklist = ({ tasks, fetchTasks, setUpdate }) => {
   const pushSlack = async () => {
-    await postSlack({tasks,message:"pushing to slackk"});
+    await postSlack({ tasks, message: "pushing to slackk" });
   };
   const remove = async (id) => {
     await deleteTask(id);
@@ -47,18 +49,26 @@ const Tasklist = ({ tasks, fetchTasks }) => {
                       Delete
                     </button>
                   </td>
-                  <td>
-                    <button
-                      class="green ui button"
-                    >
-                      Edit
-                    </button>
-                  </td>
+                  <Link to="/update">
+                    <td>
+                      <button
+                        onClick={() => setUpdate(task)}
+                        class="green ui button"
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </Link>
                 </tr>
               ))}
             </tbody>
           </table>
-          <button class="teal ui button" onClick={() => {pushSlack()}}>
+          <button
+            class="teal ui button"
+            onClick={() => {
+              pushSlack();
+            }}
+          >
             Push to Slack
           </button>
         </div>
