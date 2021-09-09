@@ -3,7 +3,7 @@ import { deleteTask, postSlack } from "../services/task";
 
 const Tasklist = ({ tasks, fetchTasks }) => {
   const pushSlack = async () => {
-    await postSlack();
+    await postSlack({tasks,message:"pushing to slackk"});
   };
   const remove = async (id) => {
     await deleteTask(id);
@@ -31,11 +31,12 @@ const Tasklist = ({ tasks, fetchTasks }) => {
                 </th>
                 <th style={{ padding: "0.928571em 8.785714em" }}>Completed</th>
                 <th>Delete</th>
+                <th>Update</th>
               </tr>
             </thead>
             <tbody>
               {tasks.map((task) => (
-                <tr class="positive" key={task.id}>
+                <tr class="positive" key={task._id}>
                   <td>{task.description}</td>
                   <td>{task.completed.toString()}</td>
                   <td>
@@ -44,6 +45,13 @@ const Tasklist = ({ tasks, fetchTasks }) => {
                       class="negative ui button"
                     >
                       Delete
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      class="green ui button"
+                    >
+                      Edit
                     </button>
                   </td>
                 </tr>

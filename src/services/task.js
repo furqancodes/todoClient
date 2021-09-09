@@ -1,13 +1,12 @@
 import Task from "../api";
-import Slack from "../api/slack"
 require("dotenv").config();
 
 export const addTask = async (description, completed) => {
-  const taskList = await Task.post("/add", {
+  const response = await Task.post("/add", {
     description,
     completed,
   });
-  return taskList;
+  return response;
 };
 
 export const getTasks = async () => {
@@ -16,13 +15,14 @@ export const getTasks = async () => {
 };
 
 export const deleteTask = async (taskid) => {
-  const taskList = await Task.delete(`/tasks/${taskid}`);
-  return taskList;
+  const response = await Task.delete(`/tasks/${taskid}`);
+  return response;
 };
 
-export const postSlack = async () => {
-  const taskList = await Slack.post( "", {
-    text: `all tasks`,
-  });
-  return taskList
-};
+export const postSlack = async({tasks,message})=>{
+  const response = await Task.post("/slack",{
+    message,
+    tasks
+  })
+  return response
+}
