@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { updateTasks } from "../services/task";
 
-const Update = ({ update }) => {
-  const [input, setInput] = useState(update.description);
+const Update = ({ update, fetchTasks }) => {
   const [checkbox, setCheckBox] = useState(update.completed);
+
+  const [input, setInput] = useState(update.description);
   const [redirect, setRedirect] = useState(false);
 
   console.log(checkbox);
@@ -15,6 +16,7 @@ const Update = ({ update }) => {
       description: input,
       completed: checkbox,
     });
+    fetchTasks();
     setRedirect(true);
   };
   if (redirect) {

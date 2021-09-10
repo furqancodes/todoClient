@@ -41,7 +41,7 @@ const App = () => {
           </div>
         </Route>
         <Route path="/update">
-          <Update update={update} />
+          <Update update={update} fetchTasks={fetchTasks} />
         </Route>
       </Switch>
     </Router>
