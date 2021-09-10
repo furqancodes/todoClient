@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { updateTasks } from "../services/task";
 
 const Update = ({ update }) => {
   const [input, setInput] = useState(update.description);
   const [checkbox, setCheckBox] = useState(update.completed);
+  const [redirect, setRedirect] = useState(false);
+
   console.log(checkbox);
   const onFormSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +15,11 @@ const Update = ({ update }) => {
       description: input,
       completed: checkbox,
     });
+    setRedirect(true);
   };
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
   return (
     <div className="ui container">
       <form class="ui form" onSubmit={onFormSubmit}>
